@@ -23,6 +23,23 @@ def get_user_by_id(user_id):
 
     return db.session.query(User).filter_by(user_id=user_id).one()
 
+def get_user_by_email(email):
+    """Return user email from registration"""
+
+    return (db.session.query(User).filter_by(email=email).first())
+
+
+def check_login(email,password):
+    """verify that login information matches database of registered users"""
+    user = get_user_by_email(email)
+    
+    if user:
+        return password == user.password
+    else:
+        flash("Sorry, that is not a valid user login.")
+        return redirect('/')
+        
+
 def create_movie(title, overview, release_date, poster_path):
     """Create and return a new movie."""
 
