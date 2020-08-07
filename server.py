@@ -58,6 +58,7 @@ def login():
     login = crud.check_login(email,password)
     if login:
         flash("You have successfully logged in.")
+        session['email'] = email
         return redirect('/')
     else:
         flash("This password didnt match the user login.")
